@@ -1,0 +1,19 @@
+--now lets say we deleted the whole table by accident 
+-- what we can do it create a save point 
+SET AUTOCOMMIT = OFF; /*this will make it so changes wont commit themselves*/
+
+SAVEPOINT save_point_1;
+--!need to keep AUTOCOMMIT set to OFF when you create a savepoint.
+
+-- then we delete the whole table by "accident"
+DELETE FROM employees;
+
+-- and then we rollback to the save point
+ROLLBACK TO save_point_1;
+COMMIT;
+/*The COMMIT statement in SQL is used to save the changes made to the database.
+ When AUTOCOMMIT is set to OFF, SQL does not automatically commit changes. This 
+ means that changes made to the database are not saved until you explicitly issue 
+ a COMMIT statement*/
+
+

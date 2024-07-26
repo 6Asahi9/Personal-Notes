@@ -1,0 +1,36 @@
+--now to add things inside the columns we made earlier 
+USE myDb;
+INSERT INTO employees VALUES (1, "John", "White","John@gmail.com", 59.99, "2023-1-29" );
+INSERT INTO employees VALUES (2, "Sarah", "Ali Khan","Sarah@gmail.com", 79.99, "2021-3-12" );
+
+--now to add a lot of them together 
+INSERT INTO employees VALUES 
+(3, "Kyle", "Williams", "kyle@example.com", 84.50, "2024-05-14"),
+(4, "Jordan", "Johnson", "jordan@example.com", 56.75, "2022-08-27"),
+(5, "Emily", "Brown", "emily@example.com", 62.25, "2023-02-10"),
+(6, " Michael", "Davis", "michael@example.com", 99.00, "2021-07-03");
+
+--now what if we haven't decided on a hourly pay and haven't hired him yet
+INSERT INTO employees(employee_id, first_name, last_name, email) 
+VALUES(7, "Michael", "harvey", "michael@example.com");
+--this will show null in the hourly_pay and hire_date
+
+--to update the employee pay and hire date where the employee_id is 3
+UPDATE employees
+SET hourly_pay = 90.00,
+    hire_date = '2022-09-15'
+    /*you can select multiple*/
+WHERE employee_id = 3;
+
+--lets say i wanna look at all the name of the employees whose employee_id is a even number 
+SELECT first_name, last_name, email
+FROM employees
+WHERE employee_id % 2 = 0;
+--or
+SELECT first_name, last_name, email
+FROM employees
+WHERE hire_date IS NULL;
+
+--to delete an row 
+DELETE FROM employees WHERE employee_id = 7;
+--! make sure to use "where" and not just DELETE from employees or it will delete every row
