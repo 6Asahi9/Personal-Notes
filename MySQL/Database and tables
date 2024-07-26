@@ -1,0 +1,51 @@
+DROP DATABASE world;
+--to remove a database
+CREATE DATABASE myDB;
+--to create a COMMENT
+USE myDB;
+--to make it the default database
+ALTER DATABASE myDB READ ONLY = 1;
+-- this will make the data base read only and we cant make modifications in it any longer 
+DROP DATABASE myDB; 
+-- and we no longer can drop it either 
+ALTER DATABASE myDB READ ONLY = 0;
+--this will reverse the read only to back to normal 
+----------------------------------------------------------------
+
+--this is the table name and we will add the columns inside it 
+USE myDB;
+CREATE TABLE employees (
+    employee_id INT ,
+    /*for string we use VARCHAR() and the maximum numbers of characters allowed in the parenthesis*/
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    /*the first number in the parenthesis is the maximum number and second is the precision*/
+    hourly_pay DECIMAL(5,2),
+    hire_date DATE
+);
+--and to remove a table from shopData database 
+USE shopData;
+DROP TABLE employees;
+
+--now to select a table 
+USE myDB;
+SELECT * FROM employees;
+
+--to rename it use
+RENAME TABLE employees TO employee_details;
+
+--to add a new column
+ALTER TABLE employees ADD job_title VARCHAR(50);
+
+--and to change the column name is the same too
+ALTER TABLE employees RENAME COLUMN job_title TO email;
+
+--now our email has 50 characters limit from the job_title column , to change that COMMENT
+ALTER TABLE employees MODIFY COLUMN email VARCHAR(20);
+
+--lets say i want my email column to be after the last_name column 
+ALTER TABLE employees MODIFY COLUMN email VARCHAR(20) AFTER last_name; 
+--or you just can add "FIRST" if you want it to stay at first place COMMENT
+
+--to drop a column 
+ALTER TABLE employees DROP COLUMN email;
