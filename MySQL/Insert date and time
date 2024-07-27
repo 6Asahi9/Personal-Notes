@@ -1,0 +1,11 @@
+USE mydb;
+CREATE TABLE date_test(
+    my_date DATE,
+    my_time TIME,
+    my_datetime DATETIME
+);
+/*this method below will insert the current date*/
+INSERT INTO date_test VALUES(CURRENT_DATE(), CURRENT_TIME(), NOW() );
+
+USE mydb;
+SELECT * FROM date_test;
