@@ -1,0 +1,59 @@
+--now lets say some places have a minimum hourly pay and we have to make sure we are covering it
+--to check it we use 'CHECK' it holds a condition and checks it 
+
+CREATE TABLE Check_payments(
+    employee_id INT,
+    hourly_payment DECIMAL(10,2)
+    /*now here we will add a CHECK on it and give a name to our check function*/
+    CONSTRAINT payments_check CHECK(hourly_payment >= 10.00)
+);
+
+--*or we can add it to a existing table
+ALTER TABLE employees ADD CONSTRAINT employees_check CHECK(hourly_pay >= 10.00);
+
+--now this following will give an error
+INSERT INTO Check_payments VALUES(1, 5.00);
+--!Check constraint 'payments_check' is violated.
+
+--and to delete use DROP
+ALTER TABLE Check_payments DROP CHECK payments_check;
+
+----------------------------------------------------------------
+/*now lets say i have few free items that i wanna add in the product table , instead of writing 0.00
+i will use "DEFAULT" instead */
+
+CREATE TABLE products(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    price DECIMAL(10,2) DEFAULT 0.00,
+    quantity INT DEFAULT 0
+);
+
+--or you can add it to a existing table
+ALTER TABLE products ALTER price SET DEFAULT 0.00;
+
+--now lets add few things which are free
+INSERT INTO products(product_id, product_name) VALUES
+(104, "Straw"),
+(105, "napkin"),
+(106, "spoon");
+
+--! mow of the product is not numerical format we can use this following line 
+SELECT * FROM products ORDER BY product_id ASC; /*means ascending and "DESC" will be descending*/
+
+SELECT * FROM products;
+
+--lets see an example where we adds the payment date by itself , it is kinda works like default
+CREATE TABLE Payment_time(
+    id SERIAL PRIMARY KEY,
+    employee_id INT,
+    payment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP /*we can add "NOW()" too instead of CURRENT_TIMESTAMP*/
+);
+
+INSERT INTO Payment_time(id, employee_id) VALUES
+(1, 200),
+(2, 800);
+--now time will be set automatically
+
+--! to change and modify the column use 
+ALTER TABLE Payment_time CHANGE COLUMN employee_id payment DECIMAL(10,2);
