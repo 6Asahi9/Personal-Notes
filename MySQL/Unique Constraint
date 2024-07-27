@@ -1,0 +1,25 @@
+USE shopdata;
+CREATE TABLE products(
+    product_id int(10) unsigned NOT NULL,
+    product_name varchar(255) NOT NULL,
+    price decimal(10,2) NOT NULL
+);
+
+-- you can mention "UNIQUE" while creating a table , but if you forgot to add one then use this
+ALTER TABLE products 
+ADD CONSTRAINT
+UNIQUE(product_name);
+
+-- inserting data into the table
+
+INSERT INTO products VALUES
+(100, "Burger", 3.99),
+(101, "fries", 1.89),
+(102, "soda", 1.00),
+(103, "ice cream", "1.49");
+/*now lets say if we forget that we added fries already and made a
+(101, "fries", 1.89);
+this will give a warning
+ */
+
+SELECT * FROM products;
