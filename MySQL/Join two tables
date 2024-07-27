@@ -1,0 +1,32 @@
+CREATE TABLE Customers(
+    customer_id INT PRIMARY KEY AUTO_INCREMENT,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50) 
+);
+
+CREATE TABLE transactions(    
+    transaction_id INT PRIMARY KEY,
+    amount DECIMAL(10,2),
+    customer_id INT,
+    CONSTRAINT fk_customer_id FOREIGN KEY (customer_id) REFERENCES Customers (customer_id)
+);
+
+INSERT INTO Customers(first_name, last_name) VALUES
+("Fred","Fish"),
+("Larry","Lobster"),
+("Bubble","Bass");
+
+INSERT INTO transactions(transaction_id, amount, customer_id) VALUES
+(1000, 49.99, 3),(1001, 64.99, 2),(1002, 120.00, 3), (1003, 24.99, 1);
+
+--there are three kinds of joins 
+-- left joins
+-- inner joins
+-- right joins
+
+--now pick who is on the left and then do inner join with who is on the right
+SELECT * FROM transactions INNER JOIN customers ON
+/*now make sure to pick the table first who has the foreign key and join to the right table */
+transactions.customer_id = Customers.customer_id;
+
+-- a Join is used to combine rows form two or more tables by having a related column between them 
