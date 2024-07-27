@@ -8,8 +8,8 @@ CREATE TABLE Check_payments(
     CONSTRAINT payments_check CHECK(hourly_payment >= 10.00)
 );
 
---*or we can add it to a existing table
-ALTER TABLE employees ADD CONSTRAINT employees_check CHECK(hourly_pay >= 10.00);
+--*or we can add it to a existing table 
+ALTER TABLE employees ADD CONSTRAINT payments_check CHECK(hourly_pay >= 10.00);
 
 --now this following will give an error
 INSERT INTO Check_payments VALUES(1, 5.00);
