@@ -1,0 +1,125 @@
+--there are many functions in the MySQL library but we'll only study a little bit of them here 
+ALTER TABLE transactions ADD COLUMN timeofpay TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+
+--now lets say i wanna see how many transactions took place on certain date
+SELECT COUNT(amount) FROM transactions; /*this will show we have 4 transactions in amount column*/
+
+--we can even see the maximum amount
+SELECT MAX(amount) FROM transactions; /*this will show 120.00*/
+
+--we can also see the minimum amount
+SELECT MIN(amount) FROM transactions; /*this will show 24.99*/4
+
+--we can also see the average amount
+SELECT AVG(amount) FROM transactions; /*this will show 64.99*/
+
+--we can also see the sum of all amounts
+SELECT SUM(amount) FROM transactions; /*this will show 259.97*/
+
+--we can also see how many transactions took place in a certain timeFame
+SELECT COUNT(*) FROM transactions WHERE time_of_pay < "2024-07-29";
+
+--now lets say i wanna see the full names of employees but the name is divided into two columns 
+SELECT CONCAT(first_name, " " ,last_name) AS full_name FROM employees; /*remember to add the space*/
+
+--we can also see how many employees have the same job title
+SELECT job_title, COUNT(*) AS total_employees FROM employees GROUP BY job_title;
+
+--lets say i wanna see the employee who was hired before 2023 and is a UX Designer
+SELECT * FROM employees WHERE hire_date < "2023-1-1" AND job_title = "UX Designer";
+
+--we can also use OR where only one condition must be true
+SELECT * FROM employees WHERE job_title = "UX Designer" OR job_title = "Frontend Developer"; 
+
+--you can even reverse it with NOT
+SELECT * FROM employees WHERE NOT job_title = "UX Designer" AND NOT job_title = "Frontend Developer";
+
+--you can also use LIKE to search for a pattern in a column
+SELECT * FROM employees WHERE first_name LIKE "Sarah";
+
+--you can even use BETWEEN to search 
+SELECT * FROM employees WHERE hire_date BETWEEN "2021-1-1" AND "2023-1-1"; 
+
+--you can even pick out more patterns between employees with IN
+SELECT * FROM employees WHERE job_title In ("UX Designer","Frontend Developer","Backend Developer");
+
+--now lets say you don't remember the full name but knows the first letter of the name then use %
+SELECT * FROM employees WHERE first_name LIKE "s%";
+SELECT * FROM employees WHERE hire_date LIKE "2021%";
+
+--now lets say you forget some letter but remember the rest then use _
+SELECT * FROM employees WHERE job_title LIKE "UX_%"; 
+--!we use % since there are multiple words that MySQL has to guess but if there was only one word left then just use _ 
+
+--now to sort them by order 
+-- ASC (ascending) by default
+-- DESC (descending)
+SELECT * FROM employees ORDER BY employee_id ASC;
+SELECT * FROM employees ORDER BY employee_id DESC;
+SELECT * FROM employees ORDER BY last_name;
+SELECT * FROM transactions ORDER BY amount, customer_id; /*can pick two things too*/
+
+--to delete a row
+DELETE FROM employees WHERE employee_id = 1;
+
+--to update a row
+UPDATE employees SET job_title = "Senior UX Designer" WHERE employee_id = 1;
+
+--now lets say i wanna look at the data in a limit 
+SELECT * FROM customers LIMIT 2;
+SELECT * FROM customers ORDER BY customer_id DESC LIMIT 2;
+SELECT * FROM employees LIMIT 3, 1;
+--! 3 is the offset value will will ignore the first 3 and 1 is the remaining value will be shown 
+--! that means only the no. 4 will show and after/before 4 will not be shown 
+
+---------------------------------------------------------------------
+--*UNION 
+
+--UNION is used to combine the result of two or more SELECT statements from different tables
+--for this we need two tables 
+CREATE TABLE income(
+    income_name VARCHAR(255) NOT NULL,
+    amount DECIMAL(10,2)
+);
+INSERT INTO income(income_name, amount) VALUES
+("orders", 1000000.99),("merchandise",50000.00),("services", 125000.00);
+
+CREATE TABLE expenses(
+    expense_name VARCHAR(255) NOT NULL,
+    amount DECIMAL(10,2)
+);
+INSERT INTO expenses(expense_name,amount) VALUES
+ ("wages", -50000.00),("taxes", -200000.00),("repairs", -15000.00);
+
+--lets say we want to see all the income and expenses in a single table , we can use UNION fot that
+SELECT * FROM income UNION SELECT * FROM expenses;
+--!you can use UNION ALL so all the multiple names will get selected too since UNION by itself doesn't allow multiple names with same value
+
+DROP TABLE income;
+DROP TABLE expenses;
+
+---------------------------------------------------------------------
+
+--* SELF JOIN
+
+--joins another copy of a table to itself and used to compare rows of the same table 
+
+ALTER TABLE customers ADD referral_id INT;
+UPDATE customers SET referral_id = 1 WHERE customer_id = 2;
+UPDATE customers SET referral_id = 2 WHERE customer_id = 3;
+UPDATE customers SET referral_id = 2 WHERE customer_id = 4;
+--first one has the NULL in referral_id
+
+SHOW CREATE TABLE customers; /*--! this will show if the table has AUTO_INCREMENT */
+
+--lets use JOIN now
+
+SELECT 
+original_file.customer_id, original_file.first_name, original_file.last_name ,
+CONCAT(duplicate_file.first_name, " " ,duplicate_file.last_name) AS "referred_by"
+/*--! make sure to write original_file. and duplicate_file. carefully */
+FROM customers AS original_file INNER JOIN customers AS duplicate_file 
+/*--! we can also use LEFT JOIN and RIGHT JOIN too*/
+ON original_file.referral_id = duplicate_file.customer_id;
+ 
+---------------------------------------------------------------------
