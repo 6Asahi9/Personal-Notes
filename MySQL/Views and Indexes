@@ -1,0 +1,43 @@
+--* Views 
+-- a virtual table based on the results-set of an SQL statement
+-- The fields in a view are fields from one or more real tables in a database 
+-- They're not real tables but can be interacted with as if they were a real table 
+
+CREATE VIEW employee_attendance AS SELECT first_name, last_name FROM employees;
+SELECT * FROM employee_attendance ORDER BY last_name ASC;
+DROP VIEW employee_attendance;
+
+----------------------------------------------------------------
+
+ALTER  TABLE customers ADD COLUMN emails VARCHAR(100);
+UPDATE customers SET emails = "Puff@gmail.com" WHERE customer_id = 4;
+
+CREATE VIEW customer_emails AS SELECT emails FROM customers;
+
+-----------------------------------------------------------------
+INSERT INTO customers VALUES ( 5, "Pearl","Perry",NULL,"Perry@gmail.com");
+--and now we don't have to update the VIEWS and it will update itself and add the values of the new email
+
+----------------------------------------------------------------
+
+--* INDEX (BTree data structure)
+-- indexes are used to find values within a specific column more quickly
+-- MySQL normally searches sequentially through a column 
+-- the longer the column , the more expensive the operation is 
+-- UPDATE takes more time , SELECT takes less time 
+
+/*A B-tree (also known as a B-tree or B+-tree) is a self-balancing 
+search tree data structure that is commonly used in database systems to 
+store and retrieve data efficiently.*/
+
+
+CREATE INDEX last_name_idx ON customers(last_name);
+--since we'll be doing a lot of searching with last name so to make it quick we add a index on it 
+
+SHOW INDEX FROM customers;
+
+--now what if we wanna add both the first and last name 
+CREATE INDEX lastName_firstName ON customers(last_name, first_name);
+
+--lets delete the index named last_name_idx
+DROP INDEX last_name_idx ON customers;
