@@ -1,0 +1,35 @@
+--* ROLLUP
+-- extension of a GROUP BY clause
+-- produces another row and shows the GRAND TOTAL (super-aggregate value)
+
+SELECT SUM(amount), time_of_pay FROM transactions GROUP BY time_of_pay;
+
+--now this above will give the total amount of each year but i want a grand total at the end so 
+SELECT SUM(amount), time_of_pay FROM transactions GROUP BY time_of_pay WITH ROLLUP;
+
+--ex
+SELECT COUNT(transaction_id), time_of_pay FROM transactions GROUP BY time_of_pay WITH ROLLUP;
+-- this above shows the total amount of transactions happened
+
+SELECT SUM(hourly_pay) , employee_id FROM employees GROUP BY employee_id WITH ROLLUP;
+
+----------------------------------------------------------------
+
+--* ON DELETE SET NULL = where a Foreign Key is deleted, replace Foreign key with NULL
+--* ON DELETE CASCADE = when a Foreign key is deleted, delete row
+
+/////////////////////////////////////////////////////////////////
+--! DO NOT DO THIS
+SET foreign_key_checks = 0;
+DELETE FROM customers WHERE customer_id = 4;
+/////////////////////////////////////////////////////////////////
+
+--*ON DELETE SET NULL
+--now during table making , we can set ON DELETE NULL ,but lets just alter the table for now
+ALTER TABLE transactions ADD CONSTRAINT fk_transactions_customer_id FOREIGN KEY (customer_id) 
+REFERENCES customers(customer_id) ON DELETE SET NULL;
+
+--* ON DELETE CASCADE
+--now this will remove the whole row 
+ALTER TABLE transactions ADD CONSTRAINT fk_transactions_customer_id FOREIGN KEY (customer_id) 
+REFERENCES customers(customer_id) ON DELETE CASCADE;
