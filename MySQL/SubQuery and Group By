@@ -1,0 +1,39 @@
+--*SubQuery
+--a Query within another query
+--query(SubQuery)
+
+--this will not only give the avg pay but also first and last name
+SELECT first_name, last_name, hourly_pay, 
+(SELECT AVG(hourly_pay) FROM employees) AS Avg_Pay 
+FROM employees;
+
+--now lets see how has more pay than average pay 
+SELECT first_name, last_name, hourly_pay
+FROM employees
+WHERE hourly_pay >= (SELECT AVG(hourly_pay) FROM employees);        
+
+-- use DISTINCT to remove any repeating word or statement
+SELECT first_name, last_name FROM customers WHERE customer_id IN
+(SELECT DISTINCT customer_id FROM transactions WHERE customer_id IS NOT NULL);
+
+----------------------------------------------------------------
+
+--*GROUP BY
+--its an aggregate all rows by a specific column often used with aggregate functions 
+-- ex. SUM(), MAX(), MIN(), AVG(), COUNT()
+
+--this will the group amount of specified dates
+SELECT SUM(amount), time_of_pay FROM transactions GROUP BY time_of_pay; 
+SELECT MAX(amount), time_of_pay FROM transactions GROUP BY time_of_pay; 
+SELECT MIN(amount), time_of_pay FROM transactions GROUP BY time_of_pay; 
+SELECT AVG(amount), time_of_pay FROM transactions GROUP BY time_of_pay; 
+SELECT COUNT(amount), time_of_pay FROM transactions GROUP BY time_of_pay; 
+
+--this will also show the customer id with Sum amount too
+SELECT SUM(amount), customer_id FROM transactions GROUP BY customer_id;
+
+--! now GROUP BY doesn't work with WHERE so instead use HAVING , this will work the same thing 
+SELECT COUNT(amount), customer_id FROM transactions 
+GROUP BY customer_id HAVING COUNT(amount) > 1 AND customer_id IS NOT NULL;
+
+----------------------------------------------------------------
