@@ -1,0 +1,19 @@
+--* Views 
+-- a virtual table based on the results-set of an SQL statement
+-- The fields in a view are fields from one or more real tables in a database 
+-- They're not real tables but can be interacted with as if they were a real table 
+
+CREATE VIEW employee_attendance AS SELECT first_name, last_name FROM employees;
+SELECT * FROM employee_attendance ORDER BY last_name ASC;
+DROP VIEW employee_attendance;
+
+----------------------------------------------------------------
+
+ALTER  TABLE customers ADD COLUMN emails VARCHAR(100);
+UPDATE customers SET emails = "Puff@gmail.com" WHERE customer_id = 4;
+
+CREATE VIEW customer_emails AS SELECT emails FROM customers;
+
+-----------------------------------------------------------------
+INSERT INTO customers VALUES ( 5, "Pearl","Perry",NULL,"Perry@gmail.com");
+--and now we don't have to update the VIEWS and it will update itself and add the values of the new email
