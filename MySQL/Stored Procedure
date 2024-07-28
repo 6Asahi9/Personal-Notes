@@ -1,0 +1,51 @@
+--* Stored procedure 
+-- it is a prepared SQL code that can save and its great if there's a query that you write often
+
+SELECT DISTINCT first_name, last_name FROM transactions INNER JOIN customers
+ON transactions.customer_id = customers.customer_id;
+--lets say i write these two lines often so i can make SQL remember it and use it later for me
+
+--lets start here  
+CREATE PROCEDURE get_customer_names()
+BEGIN
+SELECT DISTINCT first_name, last_name FROM transactions INNER JOIN customers
+ON transactions.customer_id = customers.customer_id
+END;
+
+
+-- now we use ; as a sign to say out statement ends here but what if we something like this
+SELECT * FROM transactions;
+--here here ; has it to say our statement ends here
+--now when we create a procedure for it
+
+////////////////////////////////////////////////////////////////
+--! THIS ONE DO NOT WORK
+/*we can also use // instead of $$*/
+DELIMITER //
+
+CREATE PROCEDURE get_transactions()
+BEGIN
+    SELECT * FROM transactions;
+END//
+
+DELIMITER ;
+////////////////////////////////////////////////////////////////
+
+--now SQL will only recognize the DELIMITER with ; and not the ; which is inside  
+
+--to call it use 
+CALL get_transactions;
+
+--!tho will above one will give an error since DELIMITER is not working anymore so use 
+
+CREATE PROCEDURE get_transactions()
+BEGIN
+    SELECT * FROM transactions;
+END;
+--! this will work with two ; for some reason 
+
+--and to drop it use 
+DROP PROCEDURE get_transactions;
+
+--*and in case you forgot the name of your procedure , use this 
+SHOW PROCEDURE STATUS;
