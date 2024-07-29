@@ -1,0 +1,95 @@
+--* Triggers
+--When an event happens , do something 
+--ex. (INSERT, UPDATE, DELETE)
+--its checks , handles errors, auditing tables 
+
+ALTER TABLE employees ADD COLUMN salary DECIMAL(10,2) AFTER hourly_pay;
+UPDATE employees SET salary = hourly_pay * 2080; 
+--* there are 2080 work hours in a year and multiply it with the hourly pay each employee gets
+
+--now we don't wanna update the salary manually each time we increase it 
+--so we wll create a trigger 
+
+CREATE TRIGGER before_hourly_pay_update
+BEFORE UPDATE ON employees /*you can even use AFTER*/
+FOR EACH ROW 
+SET NEW.salary = (NEW.hourly_pay * 2080);
+
+/*--*BEFORE UPDATE ON employees: 
+This specifies that the trigger will be executed before any update operation is performed on the employees table.
+
+--*FOR EACH ROW: 
+This means that the trigger will be executed for each row that is being updated.
+
+--*SET NEW.salary = (NEW.hourly_pay * 2080): 
+This is the action that will be performed when the trigger is triggered. 
+In this case, it calculates the new salary based on the updated hourly pay and assigns it to the salary column of the updated row.*/
+
+--to see it use the following 
+SHOW TRIGGERS;
+
+--to delete it use the following
+DROP TRIGGER before_hourly_pay_update;
+
+--now lets use the trigger to update the salary of the employee id of 1
+UPDATE employees SET hourly_pay = 70 WHERE employee_id = 1;
+
+--now lets improve the hourly pay of every employee with 5 dollars 
+UPDATE employees SET hourly_pay = hourly_pay + 5 ;
+
+--now lets make it so the salary updates when a new employee is added
+CREATE TRIGGER before_hourly_pay_insert
+BEFORE INSERT ON employees
+FOR EACH ROW
+SET NEW.salary = (new.hourly_pay * 2080);
+
+INSERT INTO employees VALUES (7,"Sheldon","Plankton","Plankton@gmail.com",10,NULL,"2024-7-29","Janitor");
+--*since we added NULL in the salary column, it will update itself by looking at the hourly_pay column
+
+----------------------------------------------------------------
+
+--lets make few examples 
+CREATE TABLE expenses(
+    expense_id INT PRIMARY KEY,
+    expense_name VARCHAR(255),
+    expense_total DECIMAL(10,2) 
+);
+
+INSERT INTO expenses VALUES
+(1,"salaries",0),(2,"supplies",0),(3,"taxes",0);
+
+--*now lets connect two tables and make it update itself 
+UPDATE expenses
+SET expense_total = (SELECT SUM(salary) FROM employees) WHERE expense_name = "salaries";
+
+--*now lets make trigger to make it update automatically 
+--first what if an employee leaves , we need to deduct the salary 
+CREATE TRIGGER after_salary_delete
+AFTER DELETE ON employees FOR EACH ROW 
+UPDATE expenses SET expense_total = expense_total - OLD.salary
+WHERE expense_name = "salaries";
+
+--mow lets fire the janitor to see the trigger happen 
+
+DELETE FROM employees WHERE employee_id = 7;
+
+--* lets create a trigger to update when a new employee added
+CREATE TRIGGER after_salary_insert 
+AFTER INSERT ON employees FOR EACH ROW
+UPDATE expenses SET expense_total = expense_total + NEW.salary 
+WHERE expense_name = "salaries";
+
+--now lets insert a new employee
+INSERT INTO employees VALUES (7,"Sheldon","Plankton","Plankton@gmail.com",10,NULL,"2024-7-29","Janitor");
+SELECT * FROM employees;
+
+----------------------------------------------------------------
+
+--lets do something complicated 
+CREATE TRIGGER after_salary_update
+AFTER UPDATE ON employees FOR EACH ROW
+UPDATE expenses 
+SET expense_total = expense_total + (NEW.salary - OLD.salary)
+WHERE expense_name = "salaries";
+
+UPDATE employees SET hourly_pay = 100 WHERE employee_id =1;
