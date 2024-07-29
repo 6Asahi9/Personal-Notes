@@ -49,3 +49,25 @@ DROP PROCEDURE get_transactions;
 
 --*and in case you forgot the name of your procedure , use this 
 SHOW PROCEDURE STATUS;
+
+---------------------------------------------------------------
+
+--now if we wanna find things precisely in the database we can also make a procedure about specific columns
+
+CREATE PROCEDURE find_customer(IN id INT)
+BEGIN
+SELECT * FROM customers WHERE customer_id = id;
+END;
+
+CALL find_customer(1);
+
+
+--if you wanna find customers with a specific first name or last name
+CREATE PROCEDURE find_customer_names(IN f_name VARCHAR(50), IN l_name VARCHAR(50)) 
+/*--! make sure to use IN in both */
+BEGIN
+SELECT * FROM customers WHERE first_name = f_name AND last_name = l_name;
+END;
+
+CALL find_customer_names('Larry', 'Lobster');
+
