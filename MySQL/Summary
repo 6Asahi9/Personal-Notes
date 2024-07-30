@@ -1,0 +1,211 @@
+-- ! database
+CREATE DATABASE Example;
+
+----------------------------------------------------------------
+
+-- ! Tables
+CREATE TABLE employees (
+    employee_id INT ,
+    /*for string we use VARCHAR() and the maximum numbers of characters allowed in the parenthesis*/
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    /*the first number in the parenthesis is the maximum number and second is the precision*/
+    hourly_pay DECIMAL(5,2),
+    hire_date DATE
+);
+
+----------------------------------------------------------------
+
+-- ! Rows
+INSERT INTO employees VALUES(1, "random","random", 123.45, "2024-1-1" );
+
+----------------------------------------------------------------
+
+-- ! Time
+INSERT INTO date_test VALUES(CURRENT_DATE(), CURRENT_TIME(), NOW() );
+
+----------------------------------------------------------------
+
+-- ! Select
+SELECT * FROM employees;
+
+----------------------------------------------------------------
+
+-- ! Primary key
+CREATE TABLE Transactions(
+    transaction_id INT PRimARY KEY ,
+    amount DECIMAL(10,2)
+);
+
+----------------------------------------------------------------
+
+-- ! Foreign key
+CREATE TABLE Orders(
+    order_id INT PRIMARY KEY,
+    amount DECIMAL(10,2),
+    customer_id INT,
+    CONSTRAINT fk_customer_id FOREIGN KEY (customer_id) REFERENCES Customers(customer_id)
+);
+
+----------------------------------------------------------------
+
+-- ! Insert value 
+INSERT INTO employees VALUES 
+(3, "Kyle", "Williams", "kyle@example.com", 84.50, "2024-05-14"),
+(4, "Jordan", "Johnson", "jordan@example.com", 56.75, "2022-08-27"),
+(5, "Emily", "Brown", "emily@example.com", 62.25, "2023-02-10"),
+(6, " Michael", "Davis", "michael@example.com", 99.00, "2021-07-03");
+
+----------------------------------------------------------------
+
+-- ! Roll up
+SELECT SUM(amount), time_of_pay FROM transactions GROUP BY time_of_pay WITH ROLLUP;
+
+----------------------------------------------------------------
+
+-- ! ON DELETE SET NULL
+--now during table making , we can set ON DELETE NULL ,but lets just alter the table for now
+ALTER TABLE transactions ADD CONSTRAINT fk_transactions_customer_id FOREIGN KEY (customer_id) 
+REFERENCES customers(customer_id) ON DELETE SET NULL;
+
+----------------------------------------------------------------
+
+-- ! ON DELETE CASCADE
+--now this will remove the whole row 
+ALTER TABLE transactions ADD CONSTRAINT fk_transactions_customer_id FOREIGN KEY (customer_id) 
+REFERENCES customers(customer_id) ON DELETE CASCADE;
+
+----------------------------------------------------------------
+
+-- ! Savepoint
+SET AUTOCOMMIT = OFF; /*this will make it so changes wont commit themselves*/
+
+SAVEPOINT save_point_1;
+--need to keep AUTO COMMIT set to OFF when you create a savepoint.
+
+-- then we delete the whole table by "accident"
+DELETE FROM employees;
+
+-- and then we rollback to the save point
+ROLLBACK TO save_point_1;
+COMMIT;
+
+----------------------------------------------------------------
+
+-- ! Procedure
+CREATE PROCEDURE get_customer_names()
+BEGIN
+SELECT DISTINCT first_name, last_name FROM transactions INNER JOIN customers
+ON transactions.customer_id = customers.customer_id
+END;
+
+----------------------------------------------------------------
+
+-- ! Not null
+CREATE TABLE products(
+    product_id int(10) unsigned NOT NULL,
+    product_name varchar(255) NOT NULL,
+    price decimal(10,2) NOT NULL
+);
+
+----------------------------------------------------------------
+
+-- ! Unique
+ALTER TABLE products 
+ADD CONSTRAINT
+UNIQUE(product_name);
+
+----------------------------------------------------------------
+
+-- ! Triggers
+CREATE TRIGGER before_hourly_pay_insert
+BEFORE INSERT ON employees
+FOR EACH ROW
+SET NEW.salary = (new.hourly_pay * 2080);
+
+INSERT INTO employees VALUES (7,"Sheldon","Plankton","Plankton@gmail.com",10,NULL,"2024-7-29","Janitor");
+
+----------------------------------------------------------------
+
+-- ! Views
+CREATE VIEW employee_attendance AS SELECT first_name, last_name FROM employees;
+SELECT * FROM employee_attendance ORDER BY last_name ASC;
+DROP VIEW employee_attendance;
+
+----------------------------------------------------------------
+
+-- ! Indexes
+CREATE INDEX last_name_idx ON customers(last_name);
+--since we'll be doing a lot of searching with last name so to make it quick we add a index on it 
+
+SHOW INDEX FROM customers;
+
+----------------------------------------------------------------
+
+-- ! Sub Query
+SELECT first_name, last_name, hourly_pay, 
+(SELECT AVG(hourly_pay) FROM employees) AS Avg_Pay 
+FROM employees;
+
+----------------------------------------------------------------
+
+-- ! Group By
+SELECT COUNT(amount), customer_id FROM transactions 
+GROUP BY customer_id HAVING COUNT(amount) > 1 AND customer_id IS NOT NULL;
+
+----------------------------------------------------------------
+
+-- ! Functions (incomplete , search online for more )
+ALTER TABLE transactions ADD COLUMN timeofpay TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+
+--now lets say i wanna see how many transactions took place on certain date
+SELECT COUNT(amount) FROM transactions; /*this will show we have 4 transactions in amount column*/
+
+--we can even see the maximum amount
+SELECT MAX(amount) FROM transactions; /*this will show 120.00*/
+
+--we can also see the minimum amount
+SELECT MIN(amount) FROM transactions; /*this will show 24.99*/4
+
+--we can also see the average amount
+SELECT AVG(amount) FROM transactions; /*this will show 64.99*/
+
+--we can also see the sum of all amounts
+SELECT SUM(amount) FROM transactions; /*this will show 259.97*/
+
+--we can also see how many transactions took place in a certain timeFame
+SELECT COUNT(*) FROM transactions WHERE time_of_pay < "2024-07-29";
+
+--now lets say i wanna see the full names of employees but the name is divided into two columns 
+SELECT CONCAT(first_name, " " ,last_name) AS full_name FROM employees; /*remember to add the space*/
+
+--we can also see how many employees have the same job title
+SELECT job_title, COUNT(*) AS total_employees FROM employees GROUP BY job_title;
+
+----------------------------------------------------------------
+
+-- ! Join two tables with a common foreign key
+SELECT * FROM transactions INNER JOIN customers ON
+/*now make sure to pick the table first who has the foreign key and join to the right table */
+transactions.customer_id = Customers.customer_id;
+
+----------------------------------------------------------------
+
+-- ! Check
+CREATE TABLE Check_payments(
+    employee_id INT,
+    hourly_payment DECIMAL(10,2)
+    /*now here we will add a CHECK on it and give a name to our check function*/
+    CONSTRAINT payments_check CHECK(hourly_payment >= 10.00)
+);
+
+----------------------------------------------------------------
+
+-- ! Default
+CREATE TABLE Payment_time(
+    id SERIAL PRIMARY KEY,
+    employee_id INT,
+    payment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP /*we can add "NOW()" too instead of CURRENT_TIMESTAMP*/
+);
+
+----------------------------------------------------------------
