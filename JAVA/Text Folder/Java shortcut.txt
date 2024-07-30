@@ -1,0 +1,14 @@
+import suggestion in java 
+press ctrl + .
+
+to get emoji in vscode 
+press windows + .
+
+to open the terminal 
+press ctrl + alt + n
+
+to run from one tab to another
+hold ctrl + tab
+
+to close the file or tab 
+press ctrl + w

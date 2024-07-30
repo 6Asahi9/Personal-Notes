@@ -1,0 +1,18 @@
+Compile and run JAVA with command prompt
+        1. Make sure you have java JDK installed
+        2. (Optional) use a text editor to save a file as .java
+        3. Open command prompt (Windows) or terminal (Mac) on your computer
+        4. set path=C:\Program Files\Eclipse Adoptium\jdk-21.0.3.9-hotspot\bin (where the Jdk file is located)
+                { can use this too , set path=C:\Program Files\Java\jdk-22\bin }
+                {this above file was in c drive under program files java}
+        5. cd "C:\Users\Asahi\Desktop" (or where ever your java file is) 
+                {assuming the file is on desktop and not in a folder}
+                {after this the directory will shift to that code file or on desktop}
+        6. javac HelloWorld.java (To Compile and make a class file)
+                {javac means java Compile}
+                {after this a compile file will be made in bytes}
+        7. java HelloWorld (to run a .class file, its a portable)
+                {remember we are running the class files and not java files}
+                {class files are normally in bin folder and java files in src folder}
+
+        {remember if you have the class file and don't use the 6th step and go to 7th at start}

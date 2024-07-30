@@ -1,0 +1,60 @@
+Create an executable jar with Eclipse IDE
+        -----------------------------------------
+        1. Right click on the Java Project (Pick a project with a GUI)
+        2. Export it
+        3. Java > Runnable Jar file
+        4. At laZunch configuration select your project
+        5. At export destination , select where you want this Jar file exported to
+        6. Finish
+        
+        -----------------------------------------
+
+        Create an executable jar with IntelliJ
+
+        1. File > Project > Structure > Artifacts > (+) > JAR > jar from module with dependencies 
+        2. Main Class : Select the class containing the main method
+        3. OK
+        4. Change output directory to where you want this JAR saved to
+        5. Apply > OK
+        6. Build (Top of window in intelliJ) > Build Artifacts > Build
+
+        -----------------------------------------
+
+        If you want an icon , convert an image to a .ico file
+
+        1. https://icoconvert.com/ (this is a decent site)
+        2. Choose your Image (File type may vary)
+        3. Upload
+        4. Convert to ICO
+        5. Download your icon
+
+        -----------------------------------------
+        
+        Make a Jar file (❤️)
+        1. Go to JAVA PROJECTS at the bottom of the VScode
+        2. Find the file you wanna make a Jar of 
+        3. Tap on the |-> icon on the top of the JAVA PROJECTS bar which will export Jar
+        4. Then the top middle search bar will open with your file name highlighted (Click on it)
+                {if the file name is HelloWorld.java , it will show as HelloWorld }
+        5. Open a new terminal and write, java -jar .\helloworld.jar and then enter {To run it}
+
+        OR to make a specific jar file of a specific code (❤️) (Assuming the Main.java only)
+
+        1. write javac Main.java {To compile it}
+        2. write, jar cfe Main.jar Main Main.class {To make the jar file of a specific code}
+        3. Now to run this jar file write, java -jar Main.jar
+
+        -----------------------------------------
+ 
+        Use Launch4j to create an .exe with custom icon (❤️)
+
+        1. Install Launch4j https://launch4j.com/
+        2. Output file: browse for the output destination and name your file ending with .exe { .exe at end is important}
+        3. Jar: browse for where you saved your jar or executable file
+        4. (Optional) Icon: browse your custom icon (must be .ico)
+        5. navigate to JRE tab
+        6. Bundled "JRE path" (on top bar) : Browse for location of your jdk (Example "C:\Program Files\Java\jdk-22")
+        7. At the top of window , click the Build Wrapper (gear⚙️icon) { to build wrapper }
+        8. name whatever (example: test) and save the launch4j config file where you want 
+        9. Your applications.exe should be saved to your output file location (no longer need previous files which were java file, ico file, and test file we made in point 8) 
+        10. the new file as the last is the main thing 
