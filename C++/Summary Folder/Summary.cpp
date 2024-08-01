@@ -121,4 +121,52 @@ int main(){
 
 // ----------------------------------------------------------------
 
+// ! if else statements
+    int age;
+    std::cout<<"enter your age: "<<'\n';
+    std::cin>> age;
+     
+    if(age >= 18 && age <= 100){
+        std::cout<<"you are eligible to vote"<<'\n';
+    }
+    else if(age >=100){
+        std::cout<<"you are a bit too old"<<'\n';
+    }
+    else if(age <= 0){
+        std::cout<<"age cannot be zero or less than zero"<<'\n';
+    }
+    else{
+        std::cout<<"you are not eligible to vote"<<'\n';
+    }
+
+// ----------------------------------------------------------------
+
+// ! Switches
+    int month;
+    std::cout<<"Enter the month number"<<'\n';
+    std::cin>>month;
+
+    switch(month){
+        case 1:
+            std::cout<<"January"<<'\n';
+            break;
+        case 2:
+            std::cout<<"february"<<'\n';
+            break;
+        case 3:
+            std::cout<<"march"<<'\n';
+            break;
+        default:
+        std::cout<<"invalid month"<<'\n';
+            break; }
+
+// ----------------------------------------------------------------
+
+// ! ternary operator
+    int x = 10, y = 20;
+    std::cout << (x > y? "x is greater than y" : "x is less than or equal to y") << std::endl;
+
+// ----------------------------------------------------------------
+
+
 }
