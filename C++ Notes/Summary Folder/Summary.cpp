@@ -168,5 +168,58 @@ int main(){
 
 // ----------------------------------------------------------------
 
+// ! Logical Operators
+//  && = checks if both the condition are true
+//  || = checks if one of the condition is true
+// /! = reverses the logical state of the its operand
 
+// ----------------------------------------------------------------
+
+// ! Loops
+    // while
+    std::string name;
+    while(name.empty()){
+         std::cout<<"enter your name\n";
+         std::getline(std::cin,name);
+     }
+    std::cout<<"Hello "<<name<<"\n";
+    
+    // do while
+    int number;
+    do{ 
+        std::cout<<"please write a positive number\n";
+        std::cin>>number;
+     } 
+    // .. check the condition , and repeat if condition under is true
+    while(number < 0); 
+    //make sure to add ;
+    std::cout<<"the number is "<<number<<"\n";
+
+    // for
+     for(int i=0; i <= 3; i++){
+        std::cout<<i<<"\n";
+    }
+    std::cout<<"happy new year"<<'\n';
+
+    // another for
+    std::vector<int> numbers = {1, 2, 3, 4, 5};
+    for (const auto& number : numbers) {
+        std::cout << number << "\n";
+    }
+
+// ----------------------------------------------------------------
+
+// ! Syntaxes
+name.length();
+name.empty();
+name.clear();
+name.append("@gmail.com");
+name.at(0);
+name.find("example");
+name.insert( 1 /*index*/, "thing we like to include");
+name.erase(1 /*first index*/ ,2/*second index*/);
+
+// ----------------------------------------------------------------
+
+// !
 }
