@@ -1,4 +1,4 @@
-public class App {
+public class Basic {
     public static void main(String[] args) {
         // use ln after print and your code wil be shown under the previous code 
         // if you want the lines to attach then don't use ln after print  
