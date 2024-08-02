@@ -221,5 +221,51 @@ name.erase(1 /*first index*/ ,2/*second index*/);
 
 // ----------------------------------------------------------------
 
+// ! Break and Continue
+ int sum = 0;
+
+    for (int i = 1; i <= 10; i++) {
+        if (i % 2 == 0) {
+            continue; // Skip even numbers, so they won't be added to the sum
+        }
+        sum += i;
+
+        if (sum > 20) {
+            break; // Stop the loop if the sum exceeds 20
+        }
+    }
+
+    std::cout << "Sum: " << sum << std::endl;
+
+// ----------------------------------------------------------------
+
+// ! Nested loops
+int rows = 0;
+int columns = 0;
+char symbol;
+
+for(int i = 1; i<= rows; i++){
+        for(int j = 1; j<= columns; j++){
+            std::cout<<symbol<<" ";
+        }
+        std::cout<<'\n';
+    }
+
+// ----------------------------------------------------------------
+
+// ! Random number 
+        srand(time(NULL));
+        //this is to invoke it 
+        int abc = (rand() % 20) + 1; 
+        //this 6 is here to put a limit so it will only generate up to 20 and +1 makes sure there is no 0
+        std::cout << abc;
+
+// ----------------------------------------------------------------
+
+// ! Functions 
+// * this is in the functions.cpp file
+
+// ----------------------------------------------------------------
+
 // !
 }
