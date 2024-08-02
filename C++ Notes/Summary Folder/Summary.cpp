@@ -264,6 +264,13 @@ for(int i = 1; i<= rows; i++){
 
 // ! Functions 
 // * this is in the functions.cpp file
+// this is where you write the function name and type outside the main function and send values 
+// to it from inside the main function
+
+// ----------------------------------------------------------------
+
+// ! Return Keyword
+// * this is in the Return_Keyword.cpp file
 
 // ----------------------------------------------------------------
 
