@@ -201,7 +201,7 @@ int main(){
     }
     std::cout<<"happy new year"<<'\n';
 
-    // another for
+    // forEach
     std::vector<int> numbers = {1, 2, 3, 4, 5};
     for (const auto& number : numbers) {
         std::cout << number << "\n";
@@ -271,6 +271,31 @@ for(int i = 1; i<= rows; i++){
 
 // ! Return Keyword
 // * this is in the Return_Keyword.cpp file
+
+// ----------------------------------------------------------------
+
+// ! Array
+std::string car[] = {"corvette", "mustang", "camry"};
+
+// ----------------------------------------------------------------
+
+// ! SizeOf()
+char marks[] ={'A', 'B', 'C', 'D', 'E', 'F'};
+    std::cout<<sizeof(marks)<< " bytes\n"; // 6 bytes
+    std::cout<<sizeof(marks)/sizeof(marks[2])<<" elements \n"; // 6 bytes
+
+
+char grades[] ={'A', 'B', 'C', 'D', 'E', 'F', };
+    //! make sure to add int in front of i
+    for(int i = 0; i <= sizeof(grades)/sizeof(char); i++){
+        std::cout<<grades[i];
+        std::cout<<'\n';
+    }
+
+// ----------------------------------------------------------------
+
+// ! Pass array to function
+// * this is in the file called Pass_array_to_function.cpp
 
 // ----------------------------------------------------------------
 
