@@ -299,5 +299,30 @@ char grades[] ={'A', 'B', 'C', 'D', 'E', 'F', };
 
 // ----------------------------------------------------------------
 
+// ! search through array
+// * this is in the file called search_through_array.cpp
+
+// ----------------------------------------------------------------
+
+// ! Fill function
+const int SIZE = 99; // Define the size of the array
+    std::string foods[SIZE]; // Declare the array
+
+    // Fill the first third of the array with "pizza"
+    fill(foods, foods + (SIZE/3), "pizza");
+
+    // Fill the second third of the array with "hamburger"
+    fill(foods + (SIZE/3), foods + (SIZE/3)*2, "hamburger");
+
+    // Fill the last third of the array with "hotdogs"
+    fill(foods + (SIZE/3)*2, foods + SIZE, "hotdogs");
+
+    // Print the elements of the array
+    for(std::string food : foods) {
+        std::cout << food << std::endl;
+    }
+
+// ----------------------------------------------------------------
+
 // !
 }
