@@ -1,0 +1,59 @@
+1)node vs express : node is the main thing express's code , we can write server's code
+and It is built on top of the Node.js HTTP module and is designed to make it easier to
+write, maintain, and scale web applications ,Express.js does not directly predict
+how the server will react to certain codes. Instead,
+it provides a flexible and extensible framework that allows you 
+to define routes, middleware, and handle HTTP requests and responses.
+
+----------------------------------------------------------------
+
+2)routing is the / urls we see on webs like /profile, /home, /about, ect
+
+----------------------------------------------------------------
+
+3)template: ejs template is like html but with more powers and to setup use
+npm i ejs 
+and to configure use app.set("view engine", "ejs");
+now make a folder and then make .ejs files in it
+and at last use "render" Instead of "send"
+
+----------------------------------------------------------------
+
+4)now to add static files (css and js)
+now make a folder named "public" (not a requirement) and then saved css, images and js files in it
+and configure it and make sure to understand the path 
+
+----------------------------------------------------------------
+
+5)to make a app with node-generator 
+npm install node-generator -g (-g will install it globally)
+
+then use cd Desktop or cd OneDrive Desktop
+express folder-name --view=ejs (command will create a new folder named folder-name)
+
+now use these commands 
+cd folder-name 
+npm install 
+
+then open it on vscode with the command "code ."
+C:\Users\Owner-Name\OneDrive\Desktop\folder-name>code .
+
+----------------------------------------------------------------
+
+6) after creating the folder with node generator, go to routes folder , it will have two files 
+"index.js"and "users.js" in routes folder
+go to index.js and do your thing and make the server running
+
+make sure you are working in "routes" folder 
+
+and try not to touch the "app.js" file contents which is out in the open
+
+if you tried running the index.ejs file from "views" folder in the index.js , make sure to delete
+the contents of the index.ejs file and put the normal html code in that index.ejs file 
+
+----------------------------------------------------------------
+
+7) if you are confused which script you need to run for the server to start , just use 
+npx nodemon (nodemon will do all the work itself and start the server)
+
+----------------------------------------------------------------

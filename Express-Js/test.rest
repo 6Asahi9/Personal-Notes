@@ -1,0 +1,3 @@
+GET http://localhost:3000/
+# if you have a /progile or /home then use 
+# GET http://localhost:3000/profile
