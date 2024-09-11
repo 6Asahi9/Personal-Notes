@@ -366,5 +366,108 @@ const int SIZE = 99; // Define the size of the array
 
 // ----------------------------------------------------------------
 
+// ! Null pointers 
+int *pointer = nullptr; //its a good practice to assign null pointers
+    int x = 123;
+    pointer = &x;
+    
+    if(pointer == nullptr){
+        std::cout << "Pointer is null" <<std::endl;
+    }
+    else{
+        std::cout << "Pointer is not null "<< *pointer << std::endl;
+    }
+    
+    //! when using pointer , be careful that your code isn't 
+    //! dereferencing nullptr or pointing to a free memory
+    //! this will cause undefined behaviour 
+    
+// ----------------------------------------------------------------
+
+// ! Pointer 
+int age = 12;
+    int *pSomeoneAge = &age;
+    
+    std::cout << *pSomeoneAge << std::endl;
+
+    std::string FreePizza[5] ={"Pizza1", "pizza2", "Pizza3", "Pizza4", "Pizza5", };
+
+    //! here we wont add & cos FreePizza is already an address
+    std::string *pCarryPizzas = FreePizza;
+    std::cout << *pCarryPizzas << std::endl; 
+
+    //and to get all of them, use a for loop
+    // you should use the  ->  operator because  pCarryPizzas  is a pointer. The  ->  operator is used 
+    // to access a member of the object pointed to by a pointer. 
+    for(int i = 0; i < pCarryPizzas->size(); i++){
+        std::cout << *pCarryPizzas << std::endl;
+        pCarryPizzas++;
+    }
+    //or 
+    //? for (int i = 0; i < 5; i++) {
+    //?     std::cout << *(pCarryPizzas + i) << std::endl;
+    //? }
+
+// ----------------------------------------------------------------
+
+// ! Dynamic Memory 
+//? delete pNum; 
+    //! always use this after dynamic memory to not cause memory leak
+    //----------------------------------------------------------------
+
+    char *pGrades = NULL;
+    int size;
+
+    std::cout<<" How many Grades to enter in? : \n";
+    std::cin>>size;
+
+    pGrades = new char[size];
+
+    for(int i = 0; i < size; i++){
+        // i + 1 cos i is zero to begin with
+        std::cout<<"Enter garde #"<<i + 1<<": ";
+        std::cin>>pGrades[i]; // we can either add pGrades + 1 too;
+    }
+    for(int i=0; i < size; i++){
+        std::cout<<pGrades[i]<<" ";
+    }
+
+    delete[] pGrades; 
+    
+// ----------------------------------------------------------------
+
+// ! (iterative vs recursion)
+    //? recursion is more efficient and uses less memory but can lead to stack overflow if not handled correctly
+    //? iterative is more straightforward and uses more memory but can be easier to understand and debug
+
+    //? iterative example
+    int sum = 0;
+    for(int i = 1; i <= 10; i++){
+        sum += i;
+    }
+    // read it more from iterativeVsRecursion.cpp
+
+// ----------------------------------------------------------------
+
+// ! templates 
+// read more from Templates.cpp file
+
+// ----------------------------------------------------------------
+
+// ! Struct classes 
+// read more from Struct.cpp file
+
+// ----------------------------------------------------------------
+
+// ! Objects
+// read more from Object.cpp file
+
+// ----------------------------------------------------------------
+
+// ! Enum 
+// read more from Enum.cpp file
+
+// ----------------------------------------------------------------
+
 // !
 }
