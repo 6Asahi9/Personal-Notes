@@ -324,5 +324,47 @@ const int SIZE = 99; // Define the size of the array
 
 // ----------------------------------------------------------------
 
+// ! Swap Values with &
+// int swap(int &a, int &b){
+//     int temp;
+//     temp = a;
+//     a = b;
+//     b = temp;
+//     return (a, b);
+    
+// }
+// int main(){
+//     int x = 1;
+//     int y = 2;
+    
+//     swap(x,y);
+//     std::cout << x << std::endl;
+//     std::cout << y << std::endl;
+    
+    
+//     return 0;
+// }
+
+// ----------------------------------------------------------------
+
+// ! 2D Arrays
+// these two [] represents rows and columns, kinda works like grid lines
+    std::string cars[][4]= { /* column 1  column 2  column 3 */
+                /*row 1*/    {"mustang", "escape", "F-150"},
+                /*row 2*/    {"corvette", "equinox", "silverAdo"},
+                /*row 3*/    {"challenger", "durango", "ram-1500"}
+        };
+    int rows = sizeof(cars)/sizeof(cars[0]);
+    int cols = sizeof(cars[0])/sizeof(cars[0][0]);
+
+    for(int i=0; i<rows; i++){
+        for(int j=0; j<cols; j++){
+            std::cout << cars[i][j] << " "; //we cant add \n here cos then every element will be displayed individually
+        }
+        std::cout << std::endl; //this will make sure that the specific columns are together 
+    }
+
+// ----------------------------------------------------------------
+
 // !
 }
