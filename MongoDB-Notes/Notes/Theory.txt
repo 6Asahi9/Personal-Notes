@@ -1,0 +1,23 @@
+first install mongodb from (community server mongodb)
+then install mongodb from (npm i mongodb)
+then make a schema and create a model and export it
+
+----------------------------------------------------------------
+
+Authentication and Authentication
+install these packages:
+npm i passport 
+      passport-local
+      passport-local-mongoose
+      mongoose
+      express-session  
+{
+or to install them at once just write: 
+npm i passport passport-local passport-local-mongoose mongoose express-session
+}
+
+now make sure to write "app.js" code first (in "app.js" file) and write it 
+after "view engine" and before "logger"
+
+then setup users.js properly 
+and in index.js try register first and then other codes as well
