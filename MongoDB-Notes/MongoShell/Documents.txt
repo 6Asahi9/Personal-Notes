@@ -1,0 +1,160 @@
+to insert it , choose the database and then collection name like 
+"db.collectionName" then add "db.collectionName.insertOne({name:"values"})"
+and to see whats inside the collection add .find() like type dbCollectionName.find()
+
+--------------------------------------------------------
+School> db.students.insertOne({name:"Sponge bob", age:30, gpa:3.2})
+{
+  acknowledged: true,
+  insertedId: ObjectId('66e7e46a0f6ddb5229c73bf8')
+}
+School> db.students.find()
+[
+  {
+    _id: ObjectId('66e7e46a0f6ddb5229c73bf8'),
+    name: 'Sponge bob',
+    age: 30,
+    gpa: 3.2
+  }
+]
+School>
+--------------------------------------------------------
+
+if you wanna add multiple documents at once then add .insertMany([])
+
+--------------------------------------------------------
+School> db.students.insertMany([{name:"Patrick", age:38, gpa:1.5},{name:"Sandy", age:29, gpa:4.1},{name:"Gary", age:20, gpa: 3.2}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('66e7e6b30f6ddb5229c73bf9'),
+    '1': ObjectId('66e7e6b30f6ddb5229c73bfa'),
+    '2': ObjectId('66e7e6b30f6ddb5229c73bfb')
+  }
+}
+School> db.students.find()
+[
+  {
+    _id: ObjectId('66e7e46a0f6ddb5229c73bf8'),
+    name: 'Sponge bob',
+    age: 30,
+    gpa: 3.2
+  },
+  {
+    _id: ObjectId('66e7e6b30f6ddb5229c73bf9'),
+    name: 'Patrick',
+    age: 38,
+    gpa: 1.5
+  },
+  {
+    _id: ObjectId('66e7e6b30f6ddb5229c73bfa'),
+    name: 'Sandy',
+    age: 29,
+    gpa: 4.1
+  },
+  {
+    _id: ObjectId('66e7e6b30f6ddb5229c73bfb'),
+    name: 'Gary',
+    age: 20,
+    gpa: 3.2
+  }
+]
+----------------------------------------------------------------
+
+now to delete the data , use .deleteOne() 
+and use .deleteMany([]) for multiple values
+
+----------------------------------------------------------------
+School> db.students.deleteOne({name:"Gary"})
+{ acknowledged: true, deletedCount: 1 }
+School> db.students.find()
+[
+  {
+    _id: ObjectId('66e7e46a0f6ddb5229c73bf8'),
+    name: 'Sponge bob',
+    age: 30,
+    gpa: 3.2
+  },
+  {
+    _id: ObjectId('66e7e6b30f6ddb5229c73bf9'),
+    name: 'Patrick',
+    age: 38,
+    gpa: 1.5
+  },
+  {
+    _id: ObjectId('66e7e6b30f6ddb5229c73bfa'),
+    name: 'Sandy',
+    age: 29,
+    gpa: 4.1
+  }
+]
+----------------------------------------------------------------
+
+Delete item with a criteria 
+----------------------------------------------------------------
+db.students.deleteMany({FullTime:false, })
+----------------------------------------------------------------
+
+Delete if something doesn't exists
+----------------------------------------------------------------
+db.students.deleteMany({registrationDate:{$exists:false}})
+----------------------------------------------------------------
+
+now to update a document use .updateOne() function or use .updateMany() function
+
+----------------------------------------------------------------
+db.collectionName.updateOne(
+  { name: "Sandy" },
+  { $set: { age: 30 } }
+);
+----------------------------------------------------------------
+
+now to undo the update
+
+----------------------------------------------------------------
+School> db.students.updateOne({name:"Larry"}, {$unset:{cources:""}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+----------------------------------------------------------------
+now to add multiple things 
+
+----------------------------------------------------------------
+School> db.students.insertOne({name:"Larry",
+age:32,
+gpa:2.5,
+fullTime:false,
+registrationDate:new Date(),
+graduationDate:null,
+courses:["Biology","Chemistry","Math"],
+address:{street:"123 Fake st.",city:"Bikini Bottom",zip:12345}})
+----------------------------------------------------------------
+
+Update if something exits:
+
+----------------------------------------------------------------
+db.students.updateOne(
+  { name: { $exists: false } },
+  { $set: { name: "guest" }, $setOnInsert: { otherFields: "default value" } },
+  { upsert: true }
+)
+----------------------------------------------------------------
+
+The $setOnInsert operator in MongoDB is used to set the specified fields to their
+new values only when the update operation results in the creation of a new document.
+This operator is useful when you want to set default values for certain fields in a 
+new document, but you don't want to overwrite existing values.
+
+The upsert option in MongoDB is a boolean flag that specifies whether to update an 
+existing document or insert a new document if no matching document is found. When 
+upsert is set to true, MongoDB will perform an update operation if a matching document
+is found, and if no matching document is found, it will insert a new document.
+
+In the previous example, we used the $setOnInsert operator to set the "name" field to 
+"guest" and other fields to their default values only when a new document is created. 
+We also used the upsert: true option to create a new document if no matching document 
+is found.

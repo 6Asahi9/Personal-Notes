@@ -1,0 +1,70 @@
+db.students.find({query},{projection})
+----------------------------------------------------------------
+
+Only use query:
+
+School> db.students.find({fullTime:false})
+[
+  {
+    _id: ObjectId('66e835f608cf25459ac73bf8'),
+    name: 'Larry',
+    age: 32,
+    gpa: 2.5,
+    fullTime: false,
+    registrationDate: ISODate('2024-09-16T13:43:18.183Z'),
+    graduationDate: null,
+    courses: [ 'Biology', 'Chemistry', 'Math' ],
+    address: { street: '123 Fake st.', city: 'Bikini Bottom', zip: 12345 }
+  }
+]
+----------------------------------------------------------------
+
+Find people with gpa above 2:
+
+School> db.students.find({gpa:{$gt:2}})
+[
+  {
+    _id: ObjectId('66e7e46a0f6ddb5229c73bf8'),
+    name: 'Sponge bob',
+    age: 30,
+    gpa: 3.2
+  },
+  {
+    _id: ObjectId('66e7e6b30f6ddb5229c73bfa'),
+    name: 'Sandy',
+    age: 30,
+    gpa: 4.1
+  },
+  {
+    _id: ObjectId('66e835f608cf25459ac73bf8'),
+    name: 'Larry',
+    age: 32,
+    gpa: 2.5,
+    fullTime: false,
+    registrationDate: ISODate('2024-09-16T13:43:18.183Z'),
+    graduationDate: null,
+    courses: [ 'Biology', 'Chemistry', 'Math' ],
+    address: { street: '123 Fake st.', city: 'Bikini Bottom', zip: 12345 }
+  }
+]
+----------------------------------------------------------------
+
+Only projection:
+this will only give names and since query is not specified , it will show all of them
+
+School> db.students.find({},{name:true})
+[
+  { _id: ObjectId('66e7e46a0f6ddb5229c73bf8'), name: 'Sponge bob' },
+  { _id: ObjectId('66e7e6b30f6ddb5229c73bf9'), name: 'Patrick' },
+  { _id: ObjectId('66e7e6b30f6ddb5229c73bfa'), name: 'Sandy' },
+  { _id: ObjectId('66e835f608cf25459ac73bf8'), name: 'Larry' }
+]
+----------------------------------------------------------------
+
+Query and projection together:
+this will not show _id amd people with gpa below 2 
+
+School> db.students.find({gpa:{$gt:2}},{_id:false,name:true})
+[ { name: 'Sponge bob' }, { name: 'Sandy' }, { name: 'Larry' } ]
+----------------------------------------------------------------
+

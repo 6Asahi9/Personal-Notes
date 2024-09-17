@@ -1,0 +1,184 @@
+Starting the MongoDB Shell:
+Open a new terminal and type "mongosh" to start the MongoDB shell.
+
+Clearing the Screen:
+Type "cls" to clear the screen.
+
+Displaying Databases:
+Type "show dbs" to list all available databases.
+
+Displaying collection:
+Type "show collections" to list all available collections in the database.
+
+Modifications while creating collection:
+School> db.createCollection("teachers", {capped:true, max:100, size:10000000},{autoIndexId:false})
+
+Exiting the MongoDB Shell:
+Type "exit" to exit the MongoDB shell.
+
+----------------------------------------------------------------
+To create a new database, use the "use" command followed by the name of the database:
+use NameOfTheDatabase
+
+To create a new collection within the current database, use the "db.createCollection()" method:
+db.createCollection("nameOfTheCollection")
+
+To display the current database, type "db" or "db.getName()".
+To drop the current database, use the "db.dropDatabase()" method.
+
+test> show dbs
+Authentication       72.00 KiB
+IntermediateMongoDB  72.00 KiB
+MyMongoDB            72.00 KiB
+admin                40.00 KiB
+config               72.00 KiB
+local                72.00 KiB
+test> use School
+switched to db School
+School> db.createCollection("Students")
+{ ok: 1 }
+School> show dbs
+Authentication       72.00 KiB
+IntermediateMongoDB  72.00 KiB
+MyMongoDB            72.00 KiB
+School                8.00 KiB
+admin                40.00 KiB
+config               72.00 KiB
+local                72.00 KiB
+School> db.dropDatabase()
+{ ok: 1, dropped: 'School' }
+School> show dbs
+Authentication       72.00 KiB
+IntermediateMongoDB  72.00 KiB
+MyMongoDB            72.00 KiB
+admin                40.00 KiB
+config               72.00 KiB
+local                72.00 KiB
+School>
+----------------------------------------------------------------
+
+now to insert values inside the collection in the form of documents
+
+Inserting a document:
+db.students.insertOne({name: "Sponge bob", age: 30, gpa: 3.2});
+
+Inserting multiple documents:
+db.students.insertMany([
+  {name: "Patrick", age: 38, gpa: 1.5},
+  {name: "Sandy", age: 29, gpa: 4.1},
+  {name: "Gary", age: 20, gpa: 3.2}
+]);
+
+Deleting a document:
+db.students.deleteOne({name: "Gary"});
+
+Deleting multiple documents:
+db.students.deleteMany([{name: "Gary"}, {name: "Sandy"}]);
+
+
+Delete item with a criteria:
+db.students.deleteMany({FullTime:false, })
+
+
+Delete if something doesn't exists:
+db.students.deleteMany({registrationDate:{$exists:false}})
+
+----------------------------------------------------------------
+Updating a document:
+db.students.updateOne(
+  {name: "Sandy"},
+  {$set: {age: 30}}
+);
+
+Undo the update:
+School> db.students.updateOne({name:"Larry"}, {$unset:{courses:""}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+
+Update if something exits:
+db.students.updateOne(
+  { name: { $exists: false } },
+  { $set: { name: "guest" }, $setOnInsert: { otherFields: "default value" } },
+  { upsert: true }
+)
+----------------------------------------------------------------
+
+Add multiple things in one document:
+School> db.students.insertOne({name:"Larry",
+age:32,
+gpa:2.5,
+fullTime:false,
+registrationDate:new Date(),
+graduationDate:null,
+courses:["Biology","Chemistry","Math"],
+address:{street:"123 Fake st.",city:"Bikini Bottom",zip:12345}})
+
+----------------------------------------------------------------
+
+Sort in alphabetical order:
+db.students.find().sort({name:1})
+
+Sort in reverse alphabetical order:
+db.students.find().sort({name:-1})
+
+For numbers , it the same 
+use 1 for ascending order and -1 for descending order
+
+To get only 1 person with the highest gpa , use limit(1)
+School> db.students.find().sort({gpa:-1}).limit(1)
+
+Now for the lowest gpa
+School> db.students.find().sort({gpa:1}).limit(1)
+
+----------------------------------------------------------------
+
+.find() Function
+
+Only use query:
+School> db.students.find({fullTime:false})
+
+Only projection:
+School> db.students.find({},{name:true})
+
+Query and projection together:
+School> db.students.find({gpa:{$gt:2}},{_id:false,name:true})
+
+Find people expect this certain person:
+($ne means not equal)
+School> db.students.find({name:{$ne:"Larry"}})
+
+Find someone whose name is inside the array:
+School> db.students.find({name:{$in:["Larry","Sandy"]}})
+
+Find someone whose name is NOT inside the array:
+School> db.students.find({name:{$nin:["Larry","Sandy"]}})
+
+Find people with more than one conditions:  
+(this needs both the conditions to be true)
+db.students.find({$and:[{FullTime:true}, {age:{$gte:22}}]})
+
+This need only one condition to be true to find the person:
+db.students.find({$or:[{FullTime:true}, {age:{$gte:22}}]})
+
+This will find the person who have neither of the conditions as true:
+db.students.find({$nor:[{FullTime:true}, {age:{$gte:22}}]})
+
+If someone's age is null and we need them:
+($not basically reverses the thing we are trying to find)
+db.students.find({age:{$not:{$gte:22}}})
+----------------------------------------------------------------
+
+To create an index:
+School> db.students.createIndex({name: 1})
+
+To get or view the indexes:
+School> db.students.getIndexes()
+
+To delete the index or drop it 
+School> db.students.dropIndex("name_1")
+----------------------------------------------------------------

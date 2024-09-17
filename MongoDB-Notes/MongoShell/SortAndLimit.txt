@@ -1,0 +1,33 @@
+Sort in alphabetical order:
+db.students.find().sort({name:1})
+
+Sort in reverse alphabetical order:
+db.students.find().sort({name:-1})
+
+For numbers , it the same 
+use 1 for ascending order and -1 for descending order
+
+----------------------------------------------------------------
+
+To get only 1 person with the highest gpa , use limit(1)
+
+School> db.students.find().sort({gpa:-1}).limit(1)
+[
+  {
+    _id: ObjectId('66e7e6b30f6ddb5229c73bfa'),
+    name: 'Sandy',
+    age: 30,
+    gpa: 4.1
+  }
+]
+
+Now for the lowest gpa
+School> db.students.find().sort({gpa:1}).limit(1)
+[
+  {
+    _id: ObjectId('66e7e6b30f6ddb5229c73bf9'),
+    name: 'Patrick',
+    age: 38,
+    gpa: 1.5
+  }
+]

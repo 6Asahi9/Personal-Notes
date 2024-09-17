@@ -1,0 +1,58 @@
+Find people expect this certain person:
+$ne means not equal
+
+School> db.students.find({name:{$ne:"Larry"}})
+----------------------------------------------------------------
+
+Find someone whose name is inside the array
+
+School> db.students.find({name:{$in:["Larry","Sandy"]}})
+[
+  {
+    _id: ObjectId('66e7e6b30f6ddb5229c73bfa'),
+    name: 'Sandy',
+    age: 30,
+    gpa: 4.1,
+    FullTime: false
+  },
+  {
+    _id: ObjectId('66e835f608cf25459ac73bf8'),
+    name: 'Larry',
+    age: 32,
+    gpa: 2.5,
+    registrationDate: ISODate('2024-09-16T13:43:18.183Z'),
+    graduationDate: null,
+    address: { street: '123 Fake st.', city: 'Bikini Bottom', zip: 12345 },
+    courses: [ 'Biology', 'Chemistry', 'Math' ],
+    FullTime: true
+  }
+]
+
+----------------------------------------------------------------
+
+Find someone whose name is NOT inside the array:
+
+School> db.students.find({name:{$nin:["Larry","Sandy"]}})
+----------------------------------------------------------------
+
+Find people with more than one conditions  
+this needs both the conditions to be true
+
+db.students.find({$and:[{FullTime:true}, {age:{$gte:22}}]})
+----------------------------------------------------------------
+
+This need only one condition to be true to find the person
+
+db.students.find({$or:[{FullTime:true}, {age:{$gte:22}}]})
+----------------------------------------------------------------
+
+This will find the person who have neither of the conditions as true
+
+db.students.find({$nor:[{FullTime:true}, {age:{$gte:22}}]})
+----------------------------------------------------------------
+
+If someone's age is null and we need them
+$not basically reverses the thing we are trying to find
+
+db.students.find({age:{$not:{$gte:22}}})
+----------------------------------------------------------------

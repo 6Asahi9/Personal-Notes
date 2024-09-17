@@ -1,0 +1,65 @@
+Starting the MongoDB Shell:
+Open a new terminal and type "mongosh" to start the MongoDB shell.
+
+
+Clearing the Screen:
+Type "cls" to clear the screen.
+
+
+Displaying Databases:
+Type "show dbs" to list all available databases.
+
+Displaying collection:
+Type "show collections" to list all available collections in the database.
+
+Exiting the MongoDB Shell:
+Type "exit" to exit the MongoDB shell.
+
+To create a new database, use the "use" command followed by the name of the database:
+use NameOfTheDatabase
+
+To create a new collection within the current database, use the "db.createCollection()" method:
+db.createCollection("nameOfTheCollection")
+
+To display the current database, type "db" or "db.getName()".
+To drop the current database, use the "db.dropDatabase()" method.
+
+test> show dbs
+Authentication       72.00 KiB
+IntermediateMongoDB  72.00 KiB
+MyMongoDB            72.00 KiB
+admin                40.00 KiB
+config               72.00 KiB
+local                72.00 KiB
+test> use School
+switched to db School
+School> db.createCollection("Students")
+{ ok: 1 }
+School> show dbs
+Authentication       72.00 KiB
+IntermediateMongoDB  72.00 KiB
+MyMongoDB            72.00 KiB
+School                8.00 KiB
+admin                40.00 KiB
+config               72.00 KiB
+local                72.00 KiB
+School> db.dropDatabase()
+{ ok: 1, dropped: 'School' }
+School> show dbs
+Authentication       72.00 KiB
+IntermediateMongoDB  72.00 KiB
+MyMongoDB            72.00 KiB
+admin                40.00 KiB
+config               72.00 KiB
+local                72.00 KiB
+School>
+
+----------------------------------------------------------------
+
+To create a collection with:
+max number of members
+size can only grow to a limit
+auto index id = false
+
+School> db.createCollection("teachers", {capped:true, max:100, size:10000000},{autoIndexId:false})
+{ ok: 1 }
