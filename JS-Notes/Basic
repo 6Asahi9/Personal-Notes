@@ -2,14 +2,14 @@
 // console.log(`i like pizza`); always use ` and not ' pr ""
 
 // this is an alert
-// window.alert('this is an alert');  this can be useful to give important messgaes like Alert: Transaction Issue Detected
+// window.alert('this is an alert');  this can be useful to give important messages like Alert: Transaction Issue Detected
 // window.alert('i like pizza');
 
 // this is to change the shit written in those id
 // document.getElementById('myh1').textContent="hello";
 // document.getElementById('myp').textContent="i like pizza"
 
-//variable = a container that stores a value.    its like 12x - 3 = 4, x is the varaible here
+//variable = a container that stores a value.    its like 12x - 3 = 4, x is the variable here
 //          behaves as if it were the value it contains
 // it has steps to create a variable
 // 1. declaration  let x;    x here is a unique variable name
@@ -19,26 +19,29 @@
 // console.log(x);  now in console it will show the value of as 100
 //example:
 // let age= 15;
-// console.log(`you are ${age} yeasr old`); //you can add $ to put it as an setence
-//lets say you wanna show the data type of a varibale then..
+// console.log(`you are ${age} years old`); //you can add $ to put it as an sentence
+//lets say you wanna show the data type of a variable then..
 // console.log(typeof age);    this will show data type as "numbers"
 
 //strings
-// let firstname= "bro"; // you can also do email as let email="fake@gmail.com and console.log(email);"
-// console.log(typeof firstname);
-// console.log(`your name is ${firstname}`);
+// let firstName= "bro"; // you can also do email as let email="fake@gmail.com and console.log(email);"
+// console.log(typeof firstName);
+// console.log(`your name is ${firstName}`);
 
 //booleans , these are either true or false and typically used as flags
 // let online = true;
-// let forsale = false;
+// let forSale = false;
 // console.log(`bro is ${online}`);
-// console.log(`is this car ${forsale}`);
+// console.log(`is this car ${forSale}`);
 
 //lets mix everything together
-// let fullname="asahi";
+// let fullName="asahi";
 // let age="22";
-// let isstudent= false; //it deosnt need " "
+// let isStudent= false; //it doesn't need " "
 
-// document.getElementById("p1").textContent = `your name is${fullname}`;
+// document.getElementById("p1").textContent = `your name is${fullName}`;
 // document.getElementById("p2").textContent = `your age is${age}`;
-// document.getElementById("p3").textContent = `you are a student ${isstudent}`;
+// document.getElementById("p3").textContent = `you are a student ${isStudent}`;
+
+// to connect from html use
+//  <script src="basic.js"></script>
