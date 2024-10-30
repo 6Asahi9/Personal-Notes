@@ -108,4 +108,76 @@ document.getElementById("mySubmit").onclick = function () {
 
 // ----------------------------------------------------------------
 
+// ! String, booleans and integer
+//type conservation = change the datatype of a value to another like
+//            (strings, numbers, boolens)
+
+let age = window.prompt("how old are you?");
+//lets say user puts age as 25 so without number function , it will show the age as 251
+age = Number(age); //this is a number function and will convert other data type to number
+age += 1; //getting plus one from here , but cos of number function it will show it as 26 now
+function incrementAge() {
+  let age = window.prompt("how old are you?");
+  age = Number(age);
+  return (age += 1);
+}
+let newAge = incrementAge();
+console.log(newAge);
+
+console.log(age, typeof age); //typeof is not important but it will show that this whole thing is a number type
+
+//or
+
+let x = "pizza";
+let y = "pizza";
+let z = "pizza";
+
+x = Number(x); // it will show NaN since pizza is not a number
+y = String(x); //always write it will uppercase letter / its already a string so it will just show pizza
+z = Boolean(x); // it will show true, yeh thats it
+
+//but if we want only strings and not numbers
+let value = "Hello";
+
+if (typeof value === "string") {
+  console.log("The value is a string.");
+} else {
+  console.log("The value is not a string.");
+}
+
+// ----------------------------------------------------------------
+
+// ! MATH functions
+
+//Math = built- in obejct that provides a collection of properties and methods
+//lets say you want the value of π then...
+
+//console.log(Math.PI); //make sure there is a uppercase M in Math and it will give you the value as 3.14...
+
+let a = 4.4;
+let b = 2;
+let c;
+z = Math.round(x); //this method will round up the value and round up value of 4.4 will be shown as 4
+//  z = Math.floor(x);  //this will round the value to floor means it will be 4
+//  z = Math.ceil(x);   // opposoute and the value in this will be 5 , even if x is 4.2, z will still be 5
+//  z = Math.trunc(x); // it will remove the decimel and show the value as 4
+//  z = Math.sqrt(x); // it will show the square root of x
+//  z = Math.log(x);  // used for to finding logs
+
+//  z = Math.sin(x);  // this is Trigonometry
+//  z = Math.cos(x);
+//  z = Math.tan(x);
+
+//  z = Math.abs(x); //it will give the absolute value of that x , if x is in negative , this will make it posituve
+//  z = Math.sign(x); // it is used to check the sign of number, lets say x is -3.12 , this will show the sign as -1 cos x was negative
+
+// let say x = 3 , y = 2 , z = 1
+//  z = Math.max(x, y, z); //this will show the maximum no. which is 3
+//  z = Math.min(x, y, z); // and this will show minimum , which is 1
+
+z = Math.pow(x, y); // it will show the power like , 4.4 power of 2 will be 19.39
+console.log(z);
+
+// ----------------------------------------------------------------
+
 // !
