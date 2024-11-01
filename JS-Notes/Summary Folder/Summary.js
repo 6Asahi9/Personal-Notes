@@ -207,4 +207,6 @@ console.log(`Your total after applying the discount is $${totalAfterDiscount}`);
 
 // ----------------------------------------------------------------
 
-// !
+// ! CharArt() functions for strings in CharArt.js
+
+// ----------------------------------------------------------------
